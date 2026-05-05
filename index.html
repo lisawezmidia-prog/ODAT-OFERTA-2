@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODAT — Um dia de cada vez.</title>
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray: #86868b; /* Apple Gray */
+            --blue: #0071e3; /* Apple Blue */
+            --font-main: "SF Pro Display", "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: var(--font-main);
+            line-height: 1.45;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Global Scroll Animation --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Sections Layout --- */
+        section {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 160px 24px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* --- Typography Protagonist --- */
+        h2 {
+            font-size: clamp(32px, 8vw, 84px);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+            line-height: 1.05;
+            text-wrap: balance;
+        }
+
+        p {
+            font-size: clamp(18px, 3vw, 24px);
+            color: var(--gray);
+            font-weight: 500;
+            max-width: 650px;
+            margin: 0 auto;
+            white-space: pre-line;
+            text-wrap: balance;
+        }
+
+        /* --- Specific Section Tweaks --- */
+        #section-7 h2 {
+            font-size: clamp(48px, 12vw, 120px);
+            letter-spacing: -0.06em;
+            margin-bottom: 40px;
+        }
+
+        #section-7 p {
+            font-weight: 600;
+        }
+
+        .cta-button {
+            margin-top: 48px;
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--black);
+            padding: 18px 36px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 19px;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.03);
+            filter: brightness(0.9);
+        }
+
+        /* --- Section 1 Specific (Refined Apple) --- */
+        #section-1 {
+            background: 
+                radial-gradient(circle at center, rgba(10,132,255,0.25) 0%, rgba(0,0,0,0) 70%),
+                var(--black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #section-1::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.02;
+            pointer-events: none;
+        }
+
+        .intro-line-1 { color: #A1A1A6; font-size: clamp(18px, 3vw, 26px); font-weight: 400; margin-bottom: 20px; }
+        .intro-line-2 { color: #C7C7CC; font-size: clamp(18px, 3vw, 26px); font-weight: 400; margin-bottom: 20px; }
+        .intro-line-3 { color: #E5E5EA; font-size: clamp(18px, 3vw, 26px); font-weight: 400; }
+
+        .hero-headline {
+            font-size: clamp(44px, 10vw, 88px);
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: -0.05em;
+            line-height: 1.02;
+            margin: 100px 0 60px;
+            text-shadow: 0 0 40px rgba(10, 132, 255, 0.2); /* Subtle Glow */
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-description {
+            max-width: 650px;
+            margin: 0 auto;
+            color: #86868B;
+            font-size: clamp(18px, 2.5vw, 22px);
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .desc-highlight {
+            color: #E5E5EA;
+            font-weight: 600;
+            display: block;
+            margin-top: 12px;
+        }
+
+        .fade-in-seq {
+            opacity: 0;
+            animation: fadeIn 1.2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Section 2 Specific (Refined Apple) --- */
+        .blue-glow-line {
+            width: 160px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(10, 132, 255, 0.8), transparent);
+            box-shadow: 0 0 15px rgba(10, 132, 255, 0.6);
+            margin: 45px auto;
+            opacity: 0.8;
+        }
+
+        .sub-headline {
+            color: #A1A1A6;
+            font-size: clamp(20px, 3.5vw, 28px);
+            font-weight: 500;
+            line-height: 1.3;
+            max-width: 650px;
+            margin: 0 auto;
+            white-space: pre-line;
+        }
+
+        .emotional-highlight {
+            color: #E5E5EA;
+            font-size: clamp(20px, 3.5vw, 28px);
+            font-weight: 600;
+            line-height: 1.3;
+            max-width: 650px;
+            margin: 0 auto;
+            white-space: pre-line;
+        }
+
+        /* --- Section 3 Specific (Refined Apple) --- */
+        #section-3 {
+            background: 
+                radial-gradient(circle at center, rgba(10,132,255,0.08) 0%, rgba(0,0,0,0) 50%),
+                var(--black);
+        }
+
+        .section-label-blue {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--blue);
+            opacity: 0.8;
+            margin-bottom: 16px;
+        }
+
+        .hero-title-compact {
+            font-size: clamp(40px, 9vw, 84px);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.02;
+            margin-bottom: 32px;
+            letter-spacing: -0.04em;
+        }
+
+        .short-glow-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(10, 132, 255, 0.6), transparent);
+            box-shadow: 0 0 12px rgba(10, 132, 255, 0.4);
+            margin: 32px auto;
+        }
+
+        #section-chat-mockup {
+            padding-top: 0;
+            padding-bottom: 40px;
+            min-height: auto;
+        }
+
+        #section-4 {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            min-height: auto;
+        }
+
+        #section-5 {
+            padding-top: 40px;
+            min-height: auto;
+        }
+
+        /* --- Navigation Minimal --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 17px;
+            letter-spacing: -0.02em;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            section {
+                min-height: 60vh;
+                padding: 100px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">ODAT</div>
+    </nav>
+
+    <!-- SEÇÃO 1 -->
+    <section id="section-1">
+        <div class="container" style="max-width: 850px;">
+            <div class="intro-line-1 fade-in-seq" style="animation-delay: 0.2s;">Você promete parar.</div>
+            <div class="intro-line-2 fade-in-seq" style="animation-delay: 1.0s;">E volta.</div>
+            <div class="intro-line-3 fade-in-seq" style="animation-delay: 1.8s;">De novo.</div>
+            
+            <h2 class="hero-headline fade-in-seq" style="animation-delay: 2.8s;">Você não precisa mais perder para si mesmo.</h2>
+            
+            <div class="hero-description fade-in-seq" style="animation-delay: 4s;">
+                <p style="margin-bottom: 12px;">Quanto dinheiro você está perdendo e o quanto sua produtividade e autoestima poderiam ser maiores?</p>
+                <p style="margin-bottom: 12px;">O problema não é falta de força.</p>
+                <span class="desc-highlight">É falta de controle.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 2 -->
+    <!-- SEÇÃO 2 -->
+    <section id="section-2">
+        <div class="container">
+            <h2 class="reveal" style="font-size: clamp(32px, 8vw, 64px); font-weight: 700; margin-bottom: 80px; transition-delay: 5.2s;">Não é força de vontade.</h2>
+            
+            <div class="sub-headline reveal" style="transition-delay: 5.5s;">
+                Na hora decisiva,
+                sua mente assume.
+            </div>
+
+            <div class="blue-glow-line reveal" style="transition-delay: 5.8s;"></div>
+
+            <div class="sub-headline reveal" style="transition-delay: 6.1s;">
+                Sem um sistema,
+                você sempre volta para o mesmo ponto.
+            </div>
+
+            <div class="blue-glow-line reveal" style="transition-delay: 6.4s; margin-top: 60px;"></div>
+
+            <div class="emotional-highlight reveal" style="transition-delay: 6.7s; margin-top: 20px;">
+                E cada vez que isso acontece,
+                você confia menos em si mesmo.
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3 -->
+    <section id="section-3">
+        <div class="container">
+            <div class="section-label-blue reveal">IA QUE INTERVÉ QUANDO VOCÊ MAIS PRECISA</div>
+            
+            <h2 class="hero-title-compact reveal" style="transition-delay: 0.2s;">Você não está mais sozinho.</h2>
+            
+            <div class="sub-headline reveal" style="transition-delay: 0.4s; margin-bottom: 24px;">
+                Na hora em que você ia ceder,
+                o sistema entra em ação.
+            </div>
+
+            <div class="sub-headline reveal" style="transition-delay: 0.6s; margin-bottom: 40px;">
+                Uma IA ativa 24h,
+                treinada para te puxar de volta antes da decisão.
+            </div>
+
+            <div class="short-glow-divider reveal" style="transition-delay: 0.8s;"></div>
+
+            <div class="reveal" style="transition-delay: 1.1s; font-size: 22px; color: var(--white); font-weight: 500;">
+                Veja como isso acontece <span style="color: var(--blue);">na prática:</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOCKUP CHAT -->
+    <section id="section-chat-mockup">
+        <div class="container text-center">
+            <div class="reveal" style="transition-delay: 0.2s;">
+                <img src="app-mockup-chat-final.jpg" alt="ODAT Chat Mockup" style="max-width: 400px; width: 100%; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);">
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 4 -->
+    <section id="section-4">
+        <div class="container">
+            <h2 class="hero-title-compact reveal">Apoio real, quando importa.</h2>
+            
+            <div class="sub-headline reveal" style="transition-delay: 0.4s; margin-bottom: 24px;">
+                Conecte pessoas de confiança.
+                Acesse suporte profissional.
+            </div>
+
+            <div class="sub-headline reveal" style="transition-delay: 0.7s; margin-bottom: 60px;">
+                Uma rede pronta para te sustentar
+                nos momentos em que você mais precisa.
+            </div>
+
+            <div class="reveal" style="transition-delay: 1s;">
+                <img src="app-mockup-support.png" alt="ODAT Support Mockup" style="max-width: 440px; width: 100%; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);">
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 5 -->
+    <section id="section-5">
+        <div class="container">
+            <h2 class="reveal">Progresso que você enxerga.</h2>
+            <p class="reveal" style="margin-bottom: 60px;">Acompanhe, em tempo real: o dinheiro que deixa de perder, o tempo que está recuperando e a evolução que está construindo.</p>
+            
+            <div class="reveal" style="transition-delay: 0.3s;">
+                <img src="app-mockup-progress.png" alt="ODAT Progress Mockup" style="max-width: 440px; width: 100%; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);">
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 6 -->
+    <section id="section-6">
+        <div class="container reveal">
+            <h2>Cada vitória evolui você.</h2>
+            <p>Com níveis e recompensas, você não apenas abandona hábitos.
+               Você constrói uma nova versão de si mesmo.</p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 7 -->
+    <section id="section-7">
+        <div class="container reveal">
+            <h2>ODAT.</h2>
+            <p>Um dia de cada vez.
+               Com controle, apoio e evolução.
+               Comece sua nova sequência.</p>
+            <a href="#" class="cta-button">Comece agora.</a>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer para animação de scroll reveal
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
