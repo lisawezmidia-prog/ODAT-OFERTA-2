@@ -274,12 +274,88 @@
             letter-spacing: -0.02em;
         }
 
-        /* --- Responsive Adjustments --- */
-        @media (max-width: 768px) {
-            section {
-                min-height: 60vh;
-                padding: 100px 24px;
+        /* --- Dual Mockup Section (Image) --- */
+        #section-mockup-duo {
+            background: #000;
+            padding: 20px 0 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* --- Progress Card Component --- */
+        .progress-card {
+            background: #1c1c1e;
+            border-radius: 28px;
+            padding: 24px;
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .progress-card-title {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 24px;
+            opacity: 0.9;
+        }
+
+        .progress-item {
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .progress-bar-bg {
+            background: #2c2c2e;
+            height: 32px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            clip-path: polygon(0 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+            position: relative;
+        }
+
+        .bar-anos { background: #34c759; } /* Using green for years as well */
+        .bar-meses { background: #34c759; }
+        .bar-dias { background: #30d158; } /* Slightly different green or cyan? User said Cyan. */
+        .bar-cyan { background: #5ac8fa; }
+        .bar-horas { background: #007aff; }
+        .bar-minutos { background: #ffcc00; color: #000 !important; }
+        .bar-segundos { background: #5856d6; }
+
+        .progress-label {
+            position: absolute;
+            left: 12px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        @media (max-width: 480px) {
+            .progress-card {
+                max-width: 320px;
             }
+        }
+        .mockup-image {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            display: block;
         }
     </style>
 </head>
@@ -303,6 +379,22 @@
                 <p style="margin-bottom: 12px;">O problema não é falta de força.</p>
                 <span class="desc-highlight">É falta de controle.</span>
             </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE DESCRIÇÃO PREMIUM -->
+    <section id="section-description" style="min-height: auto; padding: 120px 24px; background: radial-gradient(circle at center, rgba(10,132,255,0.06) 0%, rgba(0,0,0,0) 60%), var(--black);">
+        <div class="container">
+            <p class="reveal" style="color: var(--white); font-size: clamp(18px, 2.5vw, 22px); font-weight: 600; line-height: 1.6; max-width: 750px; margin: 0 auto; text-align: center;">
+                A ODAT ajuda você a acompanhar seu progresso, analisar seus hábitos e manter-se motivado na sua jornada de automelhoria.
+            </p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE MOCKUP DUO (IMAGEM) -->
+    <section id="section-mockup-duo">
+        <div class="reveal" style="width: 100%; display: flex; justify-content: center;">
+            <img src="odat-dual-mockup.png" class="mockup-image" alt="ODAT App Mockup">
         </div>
     </section>
 
@@ -355,15 +447,13 @@
     </section>
 
     <!-- MOCKUP PREMIUM -->
-    <section id="section-chat-mockup" style="padding-top: 0; padding-bottom: 80px; min-height: auto;">
-        <div class="container text-center">
-            <div class="reveal" style="transition-delay: 0.2s;">
-                <img src="odat-chat-mockup-premium.png" 
-                     alt="" 
-                     width="550" 
-                     height="1116"
-                     style="max-width: 550px; width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 60px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); transform: translateZ(0); -webkit-transform: translateZ(0);">
-            </div>
+    <section id="section-chat-mockup" style="padding: 0; min-height: auto; overflow: hidden; width: 100%;">
+        <div class="reveal" style="transition-delay: 0.2s; width: 100%; display: flex; justify-content: center;">
+            <img src="odat-chat-mockup-premium.png" 
+                 alt="" 
+                 width="550" 
+                 height="1116"
+                 style="max-width: 550px; width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 60px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); transform: translateZ(0); -webkit-transform: translateZ(0);">
         </div>
     </section>
 
@@ -391,6 +481,53 @@
             <h2 class="reveal">Progresso que você enxerga.</h2>
             <p class="reveal" style="margin-bottom: 60px;">Acompanhe, em tempo real: o dinheiro que deixa de perder, o tempo que está recuperando e a evolução que está construindo.</p>
             
+            <div class="reveal" style="transition-delay: 0.2s;">
+                <div class="progress-card">
+                    <div class="progress-card-title">Livre há</div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-bar-bg">
+                            <div id="bar-anos" class="progress-bar-fill bar-meses" style="width: 0%;"></div>
+                            <span id="label-anos" class="progress-label" style="font-size: 13px; font-weight: 700; color: #fff;">0 Anos</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-bar-bg">
+                            <div id="bar-meses" class="progress-bar-fill bar-meses" style="width: 0%;"></div>
+                            <span id="label-meses" class="progress-label" style="font-size: 13px; font-weight: 700; color: #fff;">0 Meses</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-bar-bg">
+                            <div id="bar-dias" class="progress-bar-fill bar-cyan" style="width: 0%;"></div>
+                            <span id="label-dias" class="progress-label" style="font-size: 13px; font-weight: 700; color: #fff;">0 Dias</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-bar-bg">
+                            <div id="bar-horas" class="progress-bar-fill bar-horas" style="width: 0%;"></div>
+                            <span id="label-horas" class="progress-label" style="font-size: 13px; font-weight: 700; color: #fff;">0 h</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-bar-bg">
+                            <div id="bar-minutos" class="progress-bar-fill bar-minutos" style="width: 0%;"></div>
+                            <span id="label-minutos" class="progress-label" style="font-size: 13px; font-weight: 700; color: #000;">0 min</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-bar-bg">
+                            <div id="bar-segundos" class="progress-bar-fill bar-segundos" style="width: 0%;"></div>
+                            <span id="label-segundos" class="progress-label" style="font-size: 13px; font-weight: 700; color: #fff;">0 s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -432,6 +569,56 @@
         document.querySelectorAll('.reveal').forEach(el => {
             observer.observe(el);
         });
+
+        // Lógica do Contador em Tempo Real
+        const startDate = new Date();
+        startDate.setFullYear(startDate.getFullYear() - 1); // Exemplo: 1 ano atrás
+        startDate.setMonth(startDate.getMonth() - 3);      // + 3 meses
+        startDate.setDate(startDate.getDate() - 15);       // + 15 dias
+        startDate.setHours(startDate.getHours() - 4);      // + 4 horas
+
+        function updateCounter() {
+            const now = new Date();
+            let diff = now - startDate;
+
+            const msPerSecond = 1000;
+            const msPerMinute = msPerSecond * 60;
+            const msPerHour = msPerMinute * 60;
+            const msPerDay = msPerHour * 24;
+            const msPerMonth = msPerDay * 30.44; // Média
+            const msPerYear = msPerDay * 365.25;
+
+            const years = Math.floor(diff / msPerYear);
+            diff %= msPerYear;
+            const months = Math.floor(diff / msPerMonth);
+            diff %= msPerMonth;
+            const days = Math.floor(diff / msPerDay);
+            diff %= msPerDay;
+            const hours = Math.floor(diff / msPerHour);
+            diff %= msPerHour;
+            const minutes = Math.floor(diff / msPerMinute);
+            diff %= msPerMinute;
+            const seconds = Math.floor(diff / msPerSecond);
+
+            // Atualizar Textos
+            document.getElementById('label-anos').textContent = `${years} Anos`;
+            document.getElementById('label-meses').textContent = `${months} Meses`;
+            document.getElementById('label-dias').textContent = `${days} Dias`;
+            document.getElementById('label-horas').textContent = `${hours} h`;
+            document.getElementById('label-minutos').textContent = `${minutes} min`;
+            document.getElementById('label-segundos').textContent = `${seconds} s`;
+
+            // Atualizar Barras (Largura proporcional ao ciclo)
+            document.getElementById('bar-anos').style.width = `${Math.min(100, (years / 5) * 100)}%`; // Meta 5 anos
+            document.getElementById('bar-meses').style.width = `${(months / 12) * 100}%`;
+            document.getElementById('bar-dias').style.width = `${(days / 30) * 100}%`;
+            document.getElementById('bar-horas').style.width = `${(hours / 24) * 100}%`;
+            document.getElementById('bar-minutos').style.width = `${(minutes / 60) * 100}%`;
+            document.getElementById('bar-segundos').style.width = `${(seconds / 60) * 100}%`;
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
     </script>
 </body>
 </html>
