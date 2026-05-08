@@ -118,6 +118,7 @@
                 var(--black);
             position: relative;
             overflow: hidden;
+            padding-top: 100px; /* Respiro para o nav fixo */
         }
 
         #section-1::before {
@@ -376,13 +377,107 @@
                 <p style="margin-bottom: 12px;">O problema não é falta de força.</p>
                 <span class="desc-highlight">É falta de controle.</span>
             </div>
+
+            <!-- NOVA SEÇÃO: Transição Emocional -->
+            <div class="reveal" style="margin-top: 100px; padding-bottom: 40px; text-align: center;">
+                <h3 style="font-size: clamp(28px, 7vw, 48px); color: var(--white); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 48px; text-wrap: balance; max-width: 650px; margin-left: auto; margin-right: auto;">
+                    Veja o que muda quando você recupera o controle.
+                </h3>
+                <a href="#" id="btn-open-modal" style="
+                    display: inline-block;
+                    background: rgba(28, 28, 30, 0.8);
+                    color: var(--white);
+                    padding: 16px 44px;
+                    border-radius: 40px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 19px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 113, 227, 0.2);
+                    backdrop-filter: blur(15px);
+                    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+                    cursor: pointer;
+                " 
+                onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 20px 45px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 113, 227, 0.4)'; this.style.borderColor='rgba(255,255,255,0.2)';" 
+                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 113, 227, 0.2)'; this.style.borderColor='rgba(255, 255, 255, 0.1)';"
+                >
+                    Veja o que muda
+                </a>
+
+                <!-- CARD PREMIUM: Dinheiro (Inicialmente Oculto) -->
+                <div id="financial-card-section" style="display: none; margin-top: 60px; width: 100%; justify-content: center; padding: 0 10px;">
+                    <div style="background: #111111; border-radius: 32px; padding: 24px; width: 100%; max-width: 380px; border: 1px solid rgba(255,255,255,0.03); box-shadow: 0 30px 60px rgba(0,0,0,0.6);">
+                        <!-- iOS Segmented Control / Card Title -->
+                        <div id="card-title-container" style="background: #1c1c1e; border-radius: 18px; padding: 6px; display: flex; justify-content: center; margin-bottom: 24px; position: relative; overflow: hidden;">
+                            <!-- Single Title Mode (Default) -->
+                            <div id="card-dynamic-title" style="width: 100%; background: #ffffff; color: #000000; padding: 12px 0; border-radius: 14px; font-weight: 700; font-size: 17px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">Dinheiro</div>
+                            
+                            <!-- Multi-Choice Mode (For "Algo diferente") -->
+                            <div id="card-multi-choice" style="display: none; width: 100%; justify-content: space-between; gap: 4px;">
+                                <div class="choice-tab active" onclick="switchHabitMode('Money', this)">Dinheiro</div>
+                                <div class="choice-tab" onclick="switchHabitMode('Time', this)">Tempo</div>
+                                <div class="choice-tab" onclick="switchHabitMode('Health', this)">Calorias</div>
+                            </div>
+                        </div>
+
+                        <div style="height: 1px; background: rgba(255,255,255,0.05); width: 100%; margin-bottom: 24px;"></div>
+
+                        <!-- Inner Data Card -->
+                        <div style="background: #1c1c1e; border-radius: 28px; padding: 32px 28px; position: relative; text-align: left;">
+                            <!-- Clickable Input Area -->
+                            <div id="card-input-stage" style="cursor: pointer;" onclick="openPickerModal()">
+                                <div id="card-input-question" style="color: #8e8e93; font-size: 15px; font-weight: 500; margin-bottom: 20px; line-height: 1.4;">Quanto você gasta com isso por dia?</div>
+                                
+                                <div id="display-value-area" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 18px 20px; color: rgba(255,255,255,0.4); font-size: 17px; font-weight: 500; display: flex; align-items: center; justify-content: space-between;">
+                                    <span id="current-selected-value">Toque para selecionar...</span>
+                                    <!-- Ícone de Lápis (Edit) -->
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.3;">
+                                        <path d="M12 20h9"></path>
+                                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO DE RESULTADOS (Surge após preencher) -->
+                <div id="results-section" style="display: none; margin-top: 24px; width: 100%; flex-direction: column; gap: 20px; align-items: center; padding: 0 10px; margin-bottom: 100px;">
+                    <!-- 30 Dias -->
+                    <div class="result-card">
+                        <div class="result-period">Em 30 dias</div>
+                        <div id="res-30-val" class="result-value">0</div>
+                        <div id="res-30-label" class="result-label">economizados</div>
+                    </div>
+
+                    <!-- 90 Dias -->
+                    <div class="result-card">
+                        <div class="result-period">Em 90 dias</div>
+                        <div id="res-90-val" class="result-value">0</div>
+                        <div id="res-90-label" class="result-label">economizados</div>
+                    </div>
+
+                    <!-- 1 Ano -->
+                    <div class="result-card featured">
+                        <div class="result-period">Em 1 ano</div>
+                        <div id="res-365-val" class="result-value">0</div>
+                        <div id="res-365-label" class="result-label">economizados</div>
+                        
+                        <!-- Glow extra no card destaque -->
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(0, 113, 227, 0.1) 0%, transparent 70%); pointer-events: none;"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- SEÇÃO DE DESCRIÇÃO PREMIUM -->
     <section id="section-description" style="min-height: auto; padding: 120px 24px; background: radial-gradient(circle at center, rgba(10,132,255,0.06) 0%, rgba(0,0,0,0) 60%), var(--black);">
         <div class="container">
-            <p class="reveal" style="color: var(--white); font-size: clamp(18px, 2.5vw, 22px); font-weight: 600; line-height: 1.6; max-width: 750px; margin: 0 auto; text-align: center;">
+            <h2 class="reveal" style="font-size: clamp(32px, 8vw, 64px); font-weight: 700; margin-bottom: 32px;">Acompanhe sua evolução um dia de cada vez.</h2>
+            <p class="reveal" style="color: var(--gray); font-size: clamp(18px, 2.5vw, 22px); font-weight: 600; line-height: 1.6; max-width: 750px; margin: 0 auto; text-align: center;">
                 A ODAT ajuda você a acompanhar seu progresso, analisar seus hábitos e manter-se motivado na sua jornada de automelhoria.
             </p>
         </div>
@@ -391,7 +486,7 @@
     <!-- SEÇÃO DE MOCKUP (IMAGEM) -->
     <section id="section-mockup-duo">
         <div class="reveal" style="width: 100%; display: flex; justify-content: center;">
-            <img src="odat-dual-mockup6.jpg" class="mockup-image" alt="ODAT App Mockup" style="max-width: 320px;">
+            <img src="odat-dual-mockup7.jpg" class="mockup-image" alt="ODAT App Mockup" style="max-width: 320px;">
         </div>
     </section>
 
@@ -544,7 +639,939 @@
         </div>
     </section>
 
+    <style>
+        /* --- Modal Lightbox Styles --- */
+        #modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        #modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background: #121212;
+            width: 92%;
+            max-width: 400px;
+            max-height: 80vh;
+            border-radius: 32px;
+            padding: 32px 0 0; /* Removido padding bottom para o footer fixo */
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            overflow: hidden; /* Mudar para hidden para o footer ficar fixo */
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+        }
+
+        #modal-overlay.active .modal-container { transform: scale(1) translateY(0); }
+
+        .modal-header {
+            padding: 0 24px 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        /* Área de scroll da lista */
+        .habit-list {
+            padding: 0 0 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+            scrollbar-width: none;
+        }
+        .habit-list::-webkit-scrollbar { display: none; }
+
+        .modal-footer {
+            width: 100%;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        #footer-close-btn {
+            background: none;
+            border: none;
+            color: #007aff;
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: -0.4px;
+            width: 100%;
+            padding: 4px 0;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .modal-footer:active {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-title {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .modal-subtitle {
+            color: #8e8e93;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* --- Habit List Styles (iOS Style) --- */
+        .habit-list {
+            padding: 0 0 40px;
+        }
+
+        .habit-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            cursor: pointer;
+            transition: background 0.2s;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .habit-item:active {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Divider Line */
+        .habit-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 24px;
+            right: 24px;
+            height: 0.5px;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .habit-item:last-child::after { display: none; }
+
+        .habit-icon {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .habit-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .habit-info {
+            flex: 1;
+        }
+
+        .habit-name {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .habit-desc {
+            color: #8e8e93;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .habit-arrow {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            opacity: 0.8;
+        }
+
+        .habit-arrow svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Animação Premium para o surgimento do Card */
+        @keyframes premiumCardReveal {
+            0% { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.95);
+                filter: blur(10px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .card-reveal-active {
+            display: flex !important;
+            animation: premiumCardReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* --- Choice Tabs (Algo Diferente) --- */
+        .choice-tab {
+            flex: 1;
+            padding: 12px 0;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 15px;
+            text-align: center;
+            color: #8e8e93;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .choice-tab.active {
+            background: #ffffff;
+            color: #000000;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* --- Result Cards Styles --- */
+        .result-card {
+            background: #111111;
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 32px;
+            padding: 40px 32px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .result-card.featured {
+            background: #151517;
+            border: 1px solid rgba(0, 113, 227, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 113, 227, 0.15);
+            transform: scale(1.02) translateY(30px);
+        }
+
+        .result-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .result-card.featured.active {
+            transform: scale(1.02) translateY(0);
+        }
+
+        .result-period {
+            color: #8e8e93;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 16px;
+        }
+
+        .result-value {
+            color: #fff;
+            font-size: clamp(32px, 10vw, 48px);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 12px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .result-label {
+            color: #8e8e93;
+            font-size: 16px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        /* --- iOS Picker Modal Styles --- */
+        #picker-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #picker-overlay.active { display: flex; opacity: 1; }
+
+        .picker-modal {
+            background: #1c1c1e;
+            width: 85%;
+            max-width: 320px;
+            border-radius: 40px;
+            padding: 0;
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        #picker-overlay.active .picker-modal { transform: scale(1) translateY(0); }
+
+        .picker-handle {
+            width: 32px; height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin: 8px auto 4px; /* Reduzido */
+        }
+
+        .picker-header { text-align: center; padding: 0 24px; margin-bottom: 4px; } /* Reduzido drasticamente */
+        .picker-title { color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 2px; letter-spacing: -0.02em; line-height: 1.2; }
+        .picker-subtitle { color: #8e8e93; font-size: 14px; font-weight: 500; opacity: 0.7; }
+
+        /* Wheel Effect Container */
+        .picker-wheels-container {
+            position: relative;
+            height: 180px; /* Reduzido de 240px para ficar mais compacto */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-bottom: 10px;
+            mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
+        }
+
+        .picker-wheel {
+            flex: 1;
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            text-align: center;
+        }
+
+        .picker-wheel::-webkit-scrollbar { display: none; }
+
+        .wheel-item {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #8e8e93;
+            font-weight: 600;
+            scroll-snap-align: center;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .wheel-item.selected {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .picker-highlight {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%; height: 52px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .picker-labels {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: -10px;
+            color: #8e8e93;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Buttons Container */
+        .picker-footer {
+            display: flex;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            margin-top: 10px;
+        }
+
+        .picker-btn {
+            flex: 1;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-cancel { color: #007aff; border-right: 1px solid rgba(255,255,255,0.08); }
+        .btn-confirm { color: #007aff; font-weight: 700; }
+
+        .picker-btn:active { background: rgba(255,255,255,0.03); }
+    </style>
+
+    <!-- PICKER MODAL -->
+    <div id="picker-overlay">
+        <div class="picker-modal">
+            <div class="picker-handle"></div>
+            
+            <div class="picker-header">
+                <h3 class="picker-title" id="picker-title">Quanto você gastava?</h3>
+                <p class="picker-subtitle">Estimativa aproximada</p>
+            </div>
+
+            <div id="picker-labels-container" class="picker-labels" style="display: none;">
+                <span>HORA</span>
+                <span>MINUTO</span>
+            </div>
+
+            <div class="picker-wheels-container">
+                <div class="picker-highlight"></div>
+                <div id="wheel-1" class="picker-wheel"></div>
+                <div id="wheel-2" class="picker-wheel" style="display: none;"></div>
+            </div>
+
+            <div class="picker-footer">
+                <button class="picker-btn btn-cancel" onclick="closePickerModal()">Cancelar</button>
+                <button class="picker-btn btn-confirm" onclick="confirmPickerSelection()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Qual hábito você quer deixar para trás?</h3>
+                <p class="modal-subtitle">Veja o impacto que alguns dias podem fazer.</p>
+            </div>
+
+            <div class="habit-list">
+                <!-- Álcool -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10"></path><path d="M12 21V10"></path><path d="m12 10 4.22-4.22a.75.75 0 0 0 0-1.06L15.16 3.66a.75.75 0 0 0-1.06 0L10 7.78"></path><path d="m12 10-4.22-4.22a.75.75 0 0 1 0-1.06l1.06-1.06a.75.75 0 0 1 1.06 0L14 7.78"></path></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Álcool</div>
+                        <div class="habit-desc">Impactos no corpo e na mente</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                <!-- Cigarro -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 12H2v4h16"></path><path d="M22 12v4"></path><path d="M7 12v4"></path><path d="M18 8c0-2.5-2-2.5-2-5"></path><path d="M22 8c0-2.5-2-2.5-2-5"></path></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Cigarro</div>
+                        <div class="habit-desc">Dependência física e mental</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                <!-- Açúcar -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Açúcar</div>
+                        <div class="habit-desc">Impactos no metabolismo e energia</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                <!-- Pornografia -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path><line x1="2" y1="2" x2="22" y2="22"></line></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Pornografia</div>
+                        <div class="habit-desc">Impactos no foco e recompensa</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                <!-- Apostas -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path><path d="m12 12 4-4"></path><path d="m12 12-4 4"></path></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Apostas</div>
+                        <div class="habit-desc">Perda financeira e emocional</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                <!-- Fast Food -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path><line x1="12" y1="11" x2="12" y2="21"></line></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Fast Food</div>
+                        <div class="habit-desc">Impactos na saúde e disposição</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                <!-- Refrigerante -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10V5H7v16z"></path><path d="M12 5V3"></path><path d="M9 21v-4"></path><path d="M15 21v-4"></path></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Refrigerante</div>
+                        <div class="habit-desc">Consumo excessivo de açúcar</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                <!-- Redes Sociais -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Redes Sociais</div>
+                        <div class="habit-desc">Consumo excessivo de atenção</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                <!-- Compras impulsivas -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Compras impulsivas</div>
+                        <div class="habit-desc">Gatilhos emocionais e financeiros</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                <!-- Vape/Nicotina -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Vape/Nicotina</div>
+                        <div class="habit-desc">Dependência química diária</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                <!-- Algo diferente -->
+                <div class="habit-item" onclick="selectHabit(this)">
+                    <div class="habit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Algo diferente</div>
+                        <div class="habit-desc">Outro hábito que deseja mudar</div>
+                    </div>
+                    <div class="habit-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTER FIXO (Estilo Apple Picker) -->
+            <div class="modal-footer" onclick="closeModal()">
+                <button id="footer-close-btn">Fechar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Modal Picker Logic
+        const pickerOverlay = document.getElementById('picker-overlay');
+        const wheel1 = document.getElementById('wheel-1');
+        const wheel2 = document.getElementById('wheel-2');
+        const pickerTitle = document.getElementById('picker-title');
+        const pickerLabels = document.getElementById('picker-labels-container');
+
+        const habitPickerData = {
+            "Money": { 
+                title: "Quanto você gastava<br>por dia?", 
+                values: Array.from({length: 40}, (_, i) => `R$ ${(i + 1) * 5},00`)
+            },
+            "Time": { 
+                title: "Quanto tempo você<br>gastava por dia?", 
+                hours: Array.from({length: 24}, (_, i) => i < 10 ? `0${i}` : `${i}`),
+                minutes: Array.from({length: 12}, (_, i) => i*5 < 10 ? `0${i*5}` : `${i*5}`)
+            },
+            "Health": { 
+                title: "Quantas calorias você<br>consumia por dia?", 
+                values: Array.from({length: 30}, (_, i) => `${(i + 2) * 50} kcal`)
+            }
+        };
+
+        function openPickerModal() {
+            const habit = window.currentHabitType || "Algo diferente";
+            
+            // Determinar Categoria
+            let category = "Money";
+            if (["Pornografia", "Redes Sociais"].includes(habit)) category = "Time";
+            if (["Açúcar", "Fast Food", "Refrigerante"].includes(habit)) category = "Health";
+
+            const data = habitPickerData[category];
+            pickerTitle.innerHTML = data.title; // Usar innerHTML para o <br>
+
+            // Reset Wheels
+            wheel1.innerHTML = '<div class="wheel-item" style="height: 66px;"></div>'; // Padding para 180px height
+            wheel2.innerHTML = '<div class="wheel-item" style="height: 66px;"></div>';
+            wheel2.style.display = category === "Time" ? "block" : "none";
+            pickerLabels.style.display = category === "Time" ? "flex" : "none";
+
+            if (category === "Time") {
+                data.hours.forEach(v => wheel1.innerHTML += `<div class="wheel-item">${v}</div>`);
+                data.minutes.forEach(v => wheel2.innerHTML += `<div class="wheel-item">${v}</div>`);
+            } else {
+                data.values.forEach(v => wheel1.innerHTML += `<div class="wheel-item">${v}</div>`);
+            }
+
+            wheel1.innerHTML += '<div class="wheel-item" style="height: 66px;"></div>';
+            wheel2.innerHTML += '<div class="wheel-item" style="height: 66px;"></div>';
+
+            pickerOverlay.style.display = 'flex';
+            setTimeout(() => pickerOverlay.classList.add('active'), 10);
+            
+            // Setup intersection observer for items (to highlight center)
+            setupWheelSnap(wheel1);
+            if (category === "Time") setupWheelSnap(wheel2);
+        }
+
+        function setupWheelSnap(wheel) {
+            wheel.onscroll = () => {
+                const items = wheel.querySelectorAll('.wheel-item:not([style])');
+                const center = wheel.scrollTop + wheel.offsetHeight / 2;
+                
+                items.forEach(item => {
+                    const itemCenter = item.offsetTop + item.offsetHeight / 2;
+                    if (Math.abs(center - itemCenter) < 24) {
+                        item.classList.add('selected');
+                    } else {
+                        item.classList.remove('selected');
+                    }
+                });
+            };
+            // Trigger initial state
+            setTimeout(() => wheel.dispatchEvent(new Event('scroll')), 100);
+        }
+
+        function closePickerModal() {
+            pickerOverlay.classList.remove('active');
+            setTimeout(() => pickerOverlay.style.display = 'none', 400);
+        }
+
+        function confirmPickerSelection() {
+            const habit = window.currentHabitType;
+            let category = "Money";
+            if (["Pornografia", "Redes Sociais"].includes(habit)) category = "Time";
+            if (["Açúcar", "Fast Food", "Refrigerante"].includes(habit)) category = "Health";
+
+            const selectedItems = pickerOverlay.querySelectorAll('.wheel-item.selected');
+            let finalDisplayValue = "";
+            let rawNumericValue = 0; // Valor base diário
+
+            if (category === "Time") {
+                const hours = parseInt(selectedItems[0].textContent);
+                const minutes = parseInt(selectedItems[1].textContent);
+                rawNumericValue = hours * 60 + minutes; // minutos diários
+                finalDisplayValue = `${selectedItems[0].textContent}h ${selectedItems[1].textContent}min`;
+            } else {
+                const valStr = selectedItems[0].textContent.replace('R$ ', '').replace(' kcal', '');
+                rawNumericValue = parseInt(valStr);
+                finalDisplayValue = selectedItems[0].textContent;
+            }
+
+            document.getElementById('current-selected-value').textContent = finalDisplayValue;
+            document.getElementById('current-selected-value').style.color = "#fff";
+            
+            closePickerModal();
+
+            // Lógica de Resultados Dinâmicos
+            showResults(category, rawNumericValue);
+        }
+
+        function showResults(category, dailyVal) {
+            const resultsSection = document.getElementById('results-section');
+            const cards = resultsSection.querySelectorAll('.result-card');
+            
+            // Labels baseados na categoria e período
+            const categoryLabels = {
+                "Money": { default: "Economizados" },
+                "Time": { default: "Recuperadas" },
+                "Health": {
+                    30: "Possível peso evitado",
+                    90: "Possível peso evitado",
+                    365: "Possível peso evitado"
+                }
+            };
+
+            // Reset e Preparação
+            resultsSection.style.display = 'flex';
+            
+            // Cálculos
+            const periods = [30, 90, 365];
+            const targetIds = ["res-30", "res-90", "res-365"];
+
+            periods.forEach((days, idx) => {
+                const valId = `${targetIds[idx]}-val`;
+                const labId = `${targetIds[idx]}-label`;
+                const labelElement = document.getElementById(labId);
+                const valueElement = document.getElementById(valId);
+
+                // Configurar Label
+                if (category === "Health") {
+                    labelElement.textContent = categoryLabels.Health[days];
+                } else {
+                    labelElement.textContent = categoryLabels[category].default;
+                }
+                
+                let targetValue = dailyVal * days;
+                let prefix = "";
+                let suffix = "";
+                let decimals = 0;
+
+                if (category === "Money") {
+                    prefix = "R$ ";
+                    decimals = 2;
+                } else if (category === "Time") {
+                    targetValue = Math.round(targetValue / 60); // converter minutos para horas
+                    suffix = " horas";
+                } else if (category === "Health") {
+                    targetValue = targetValue / 7700; // converter kcal para kg (estimativa 7700kcal = 1kg)
+                    suffix = " kg";
+                    decimals = 1;
+                }
+
+                // Animação de contagem
+                animateNumber(valueElement, 0, targetValue, 2000, prefix, suffix, decimals);
+            });
+
+            // Animação de entrada dos cards com delay
+            setTimeout(() => {
+                cards.forEach((card, i) => {
+                    setTimeout(() => {
+                        card.classList.add('active');
+                        // No último card, dar um feedback vibrante
+                        if (i === 2) {
+                            window.navigator.vibrate?.(20);
+                        }
+                    }, i * 400);
+                });
+                // Scroll suave para os resultados
+                setTimeout(() => {
+                    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 800);
+            }, 500);
+        }
+
+        function animateNumber(element, start, end, duration, prefix = "", suffix = "", decimals = 0) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const current = progress * (end - start) + start;
+                
+                element.textContent = prefix + current.toLocaleString('pt-BR', { 
+                    minimumFractionDigits: decimals, 
+                    maximumFractionDigits: decimals 
+                }) + suffix;
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Modal Logic (Updated for List)
+        const modalOverlay = document.getElementById('modal-overlay');
+        const btnOpenModal = document.getElementById('btn-open-modal');
+
+        function openModal() {
+            modalOverlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => modalOverlay.classList.add('active'), 10);
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => modalOverlay.style.display = 'none', 400);
+        }
+
+        btnOpenModal.addEventListener('click', openModal);
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        // Habit Selection Logic
+        function selectHabit(element) {
+            const habitName = element.querySelector('.habit-name').textContent.trim();
+            const cardTitle = document.getElementById('card-dynamic-title');
+            const cardQuestion = document.getElementById('card-input-question');
+            const singleMode = document.getElementById('card-dynamic-title');
+            const multiMode = document.getElementById('card-multi-choice');
+            
+            // Mapeamento de Títulos e Perguntas Dinâmicas Premium
+            window.categoryData = {
+                "Money": { title: "Quanto você pode economizar", question: "Quanto você gasta com isso por dia?" },
+                "Time": { title: "Tempo recuperado", question: "Quanto tempo isso consome diariamente?" },
+                "Health": { title: "Calorias e peso evitados", question: "Quantas calorias isso representa diariamente?" }
+            };
+
+            const habitMapping = {
+                "Álcool": window.categoryData.Money,
+                "Cigarro": window.categoryData.Money,
+                "Açúcar": window.categoryData.Health,
+                "Pornografia": window.categoryData.Time,
+                "Apostas": window.categoryData.Money,
+                "Fast Food": window.categoryData.Health,
+                "Refrigerante": window.categoryData.Health,
+                "Redes Sociais": window.categoryData.Time,
+                "Compras impulsivas": window.categoryData.Money,
+                "Vape/Nicotina": window.categoryData.Money,
+                "Algo diferente": null // Especial
+            };
+
+            // Highlight visual momentâneo (Feedback iOS)
+            element.style.background = 'rgba(255,255,255,0.1)';
+            setTimeout(() => element.style.background = '', 200);
+
+            // Lógica Especial para "Algo diferente"
+            if (habitName === "Algo diferente") {
+                singleMode.style.display = 'none';
+                multiMode.style.display = 'flex';
+                const firstTab = multiMode.querySelector('.choice-tab');
+                switchHabitMode('Money', firstTab);
+                window.currentHabitType = "Algo diferente";
+            } else {
+                singleMode.style.display = 'block';
+                multiMode.style.display = 'none';
+                
+                if (habitMapping[habitName]) {
+                    if (cardTitle) cardTitle.textContent = habitMapping[habitName].title;
+                    if (cardQuestion) cardQuestion.textContent = habitMapping[habitName].question;
+                    window.currentHabitType = habitName;
+                }
+            }
+            
+            // Lógica de fechamento e revelação
+            setTimeout(() => {
+                closeModal();
+                
+                const cardSection = document.getElementById('financial-card-section');
+                if (cardSection.classList.contains('card-reveal-active')) {
+                    cardSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    setTimeout(() => {
+                        cardSection.classList.add('card-reveal-active');
+                        cardSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 600);
+                }
+            }, 300);
+        }
+
+        // Lógica de Troca de Modo (Algo Diferente)
+        function switchHabitMode(type, element) {
+            const tabs = document.querySelectorAll('.choice-tab');
+            const cardQuestion = document.getElementById('card-input-question');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+
+            // Atualizar Pergunta e Picker
+            if (window.categoryData && window.categoryData[type]) {
+                cardQuestion.style.opacity = '0';
+                setTimeout(() => {
+                    cardQuestion.textContent = window.categoryData[type].question;
+                    cardQuestion.style.opacity = '1';
+                }, 200);
+                
+                // Atualizar referência para o picker (simulando tipo de hábito para a lógica de picker existente)
+                if (type === 'Money') window.currentHabitType = "Cigarro"; // Dummy money habit
+                if (type === 'Time') window.currentHabitType = "Redes Sociais"; // Dummy time habit
+                if (type === 'Health') window.currentHabitType = "Açúcar"; // Dummy health habit
+                
+                // Reset do valor exibido
+                document.getElementById('current-selected-value').textContent = "Toque para selecionar...";
+                document.getElementById('current-selected-value').style.color = "rgba(255,255,255,0.4)";
+            }
+        }
+
         // Intersection Observer para animação de scroll reveal
         const observerOptions = {
             threshold: 0.1,
