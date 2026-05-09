@@ -25,12 +25,13 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        body {
+        html, body {
             background-color: var(--black);
             color: var(--white);
             font-family: var(--font-main);
             line-height: 1.45;
             overflow-x: hidden;
+            max-width: 100%;
             scroll-behavior: smooth;
         }
 
@@ -341,6 +342,13 @@
             width: 100%;
         }
 
+        .mockup-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
         /* --- Progress Card Component (Final) --- */
         .progress-card {
             background: #121212;
@@ -531,7 +539,7 @@
     </section>
 
     <!-- SEÇÃO DE DESCRIÇÃO PREMIUM -->
-    <section id="section-description" style="min-height: auto; padding: 120px 24px 40px; background: radial-gradient(circle at center, rgba(10,132,255,0.06) 0%, rgba(0,0,0,0) 60%), var(--black);">
+    <section id="section-description" style="min-height: auto; padding: 120px 24px 0; background: radial-gradient(circle at center, rgba(10,132,255,0.06) 0%, rgba(0,0,0,0) 60%), var(--black);">
         <div class="container">
             <h2 class="reveal" style="font-size: clamp(32px, 8vw, 64px); font-weight: 700; margin-bottom: 32px;">Recupere o controle. <span style="color: var(--blue);">Um dia de cada vez.</span></h2>
             <p class="reveal" style="color: var(--gray); font-size: clamp(18px, 2.5vw, 22px); font-weight: 600; line-height: 1.6; max-width: 750px; margin: 0 auto; text-align: center;">
@@ -542,9 +550,9 @@
     </section>
 
     <!-- SEÇÃO DE MOCKUP (IMAGEM) -->
-    <section id="section-mockup-duo">
+    <section id="section-mockup-duo" style="padding-top: 0; margin-top: -30px;">
         <div class="reveal" style="width: 100%; display: flex; justify-content: center;">
-            <img src="odat-dual-mockup8.png" class="mockup-image" alt="ODAT App Mockup" style="max-width: 450px;">
+            <img src="odat-dual-mockup8.png" class="mockup-image" alt="ODAT App Mockup" style="max-width: 600px;">
         </div>
     </section>
 
@@ -635,23 +643,32 @@
     <section id="section-4">
         <div class="container">
             <div class="reveal" style="transition-delay: 0.1s; width: 100%; display: flex; justify-content: center; margin-bottom: 24px;">
-                <img src="odat-dual-mockup10.png" class="mockup-image" alt="ODAT Support Mockup" style="max-width: 550px;">
+                <img src="odat-dual-mockup14.jpg" class="mockup-image" alt="ODAT Support Mockup" style="max-width: 550px;">
             </div>
 
             <h2 class="hero-title-compact reveal" style="transition-delay: 0.3s;">Apoio real, quando importa.</h2>
             
-            <div class="sub-headline reveal" style="transition-delay: 0.4s; margin-bottom: 24px;">
-                Conecte pessoas de confiança.
+            <div class="sub-headline reveal" style="transition-delay: 0.4s; margin: 45px 0 75px 0;">
+                Conecte pessoas de confiança.<br>
                 Acesse suporte profissional.
             </div>
 
-            <div class="sub-headline reveal" style="transition-delay: 0.7s; margin-bottom: 40px;">
-                Uma rede pronta para te sustentar
+            <div class="blue-glow-line reveal" style="transition-delay: 0.5s; margin: 0 auto;"></div>
+
+            <div class="sub-headline reveal" style="transition-delay: 0.6s; margin: 45px 0 75px 0;">
+                Uma rede pronta para te sustentar<br>
                 nos momentos em que você mais precisa.
             </div>
 
-            <div class="sub-headline reveal" style="transition-delay: 1.0s; margin-bottom: 40px;">
-                A recaída quase sempre começa em silêncio.<br><br>
+            <div class="blue-glow-line reveal" style="transition-delay: 0.7s; margin: 0 auto;"></div>
+
+            <div class="sub-headline reveal" style="transition-delay: 0.8s; margin: 45px 0 75px 0;">
+                A recaída quase sempre começa em silêncio.
+            </div>
+
+            <div class="blue-glow-line reveal" style="transition-delay: 0.9s; margin: 0 auto;"></div>
+
+            <div class="sub-headline reveal" style="transition-delay: 1.0s; margin: 45px 0 75px 0;">
                 O apoio também.
             </div>
 
@@ -752,7 +769,6 @@
             </div>
         </div>
     </section>
-
 
     <style>
         /* --- Modal Lightbox Styles --- */
