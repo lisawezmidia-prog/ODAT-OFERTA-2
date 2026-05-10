@@ -702,6 +702,9 @@
         </div>
     </section>
 
+    <!-- PROGRESSIVE REVEAL CONTAINER -->
+    <div id="progressive-reveal-container" style="display: none; opacity: 0; transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1); width: 100%;">
+
     <!-- SEÇÃO DE DESCRIÇÃO PREMIUM -->
     <section id="section-description" style="min-height: auto; padding: 20px 24px 0; background: radial-gradient(circle at center, rgba(10,132,255,0.06) 0%, rgba(0,0,0,0) 60%), var(--black);">
         <div class="container">
@@ -962,6 +965,7 @@
         <div class="footer-separator"></div>
         <p class="footer-copy">© 2026 ODAT. Todos os direitos reservados.</p>
     </footer>
+    </div> <!-- END PROGRESSIVE REVEAL CONTAINER -->
 
     <style>
         #site-footer {
@@ -1931,7 +1935,19 @@
 
             // Animação sequencial cinematográfica — um card por vez
             const revealCard = (index) => {
-                if (index >= cards.length) return;
+                if (index >= cards.length) {
+                    // Após a revelação do último card, liberar a jornada progressiva
+                    setTimeout(() => {
+                        const progressiveContainer = document.getElementById('progressive-reveal-container');
+                        if (progressiveContainer) {
+                            progressiveContainer.style.display = 'block';
+                            // Forçar reflow para a transição de opacidade funcionar
+                            void progressiveContainer.offsetWidth;
+                            progressiveContainer.style.opacity = '1';
+                        }
+                    }, 1000); // Aguarda 1 segundo após o último card surgir para criar expectativa
+                    return;
+                }
 
                 const card = cards[index];
                 card.classList.add('active');
