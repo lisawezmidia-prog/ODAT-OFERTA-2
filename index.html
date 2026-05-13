@@ -1889,6 +1889,13 @@
                 }
             };
 
+            // Iniciar o pré-carregamento dos textos da LP correspondente
+            // Isso garante que quando o progressive-reveal aparecer, já estará com a copy certa
+            const habitName = window.currentHabitType || 'Algo diferente';
+            if (window.LP && typeof window.LP.openForHabit === 'function') {
+                window.LP.openForHabit(habitName);
+            }
+
             // Reset e Preparação
             resultsSection.style.display = 'flex';
             setTimeout(() => resultsSection.classList.add('active'), 50);
@@ -1936,7 +1943,8 @@
             // Animação sequencial cinematográfica — um card por vez
             const revealCard = (index) => {
                 if (index >= cards.length) {
-                    // Após a revelação do último card, liberar a jornada progressiva
+                    // Após a revelação do último card:
+                    // 1. Liberar a jornada progressiva (seções abaixo)
                     setTimeout(() => {
                         const progressiveContainer = document.getElementById('progressive-reveal-container');
                         if (progressiveContainer) {
@@ -1946,6 +1954,7 @@
                             progressiveContainer.style.opacity = '1';
                         }
                     }, 1000); // Aguarda 1 segundo após o último card surgir para criar expectativa
+
                     return;
                 }
 
@@ -2676,5 +2685,13 @@
             openConversionPage();
         });
     </script>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SISTEMA MODULAR DE LPs INTERNAS — ODAT
+         lp-base.js: engine de renderização + overlay compartilhado
+         Cada LP carrega seu conteúdo via lp/<nome>/content.js
+         ═══════════════════════════════════════════════════════ -->
+    <script src="lp/lp-base.js" defer></script>
+
 </body>
 </html>

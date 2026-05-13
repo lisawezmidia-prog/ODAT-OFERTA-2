@@ -1,0 +1,463 @@
+/* ============================================================
+   LP SHARED STYLES — ODAT
+   Estilos base compartilhados por todas as LPs internas.
+   Para personalizar uma LP específica, adicione overrides
+   no arquivo content.js da LP correspondente via `lpStyles`.
+   ============================================================ */
+
+/* --- LP Overlay Principal --- */
+#lp-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    background: #08090c;
+    z-index: 99998; /* abaixo do conversion-overlay (99999) */
+    display: none;
+    opacity: 0;
+    transform: translateY(30px) scale(0.995);
+    transition:
+        opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+#lp-overlay.lp-open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Garante o display:flex antes de aplicar a transição */
+#lp-overlay.lp-preparing {
+    display: flex;
+}
+
+/* --- Inner wrapper --- */
+#lp-inner {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background:
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(0, 90, 220, 0.18) 0%, transparent 70%),
+        #08090c;
+}
+
+/* --- Header sticky --- */
+#lp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 60px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    background: rgba(8, 9, 12, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+#lp-btn-voltar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    color: #0071e3;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: var(--font-main, 'Inter', sans-serif);
+    padding: 8px 0;
+    -webkit-tap-highlight-color: transparent;
+    min-width: 80px;
+    transition: opacity 0.2s;
+}
+#lp-btn-voltar:active { opacity: 0.5; }
+
+.lp-header-logo {
+    font-weight: 600;
+    font-size: 17px;
+    color: #fff;
+    letter-spacing: -0.01em;
+    font-family: var(--font-main, 'Inter', sans-serif);
+}
+
+/* --- Hero --- */
+#lp-hero {
+    padding: 48px 28px 0;
+    text-align: center;
+}
+
+.lp-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: #0071e3;
+    opacity: 0.85;
+    margin-bottom: 16px;
+}
+
+.lp-title {
+    font-size: clamp(44px, 12vw, 80px);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1.0;
+    color: #fff;
+    margin: 0 0 20px;
+    font-family: var(--font-main, 'Inter', sans-serif);
+    text-wrap: balance;
+}
+
+.lp-desc {
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: #86868b;
+    font-weight: 400;
+    line-height: 1.55;
+    max-width: 340px;
+    margin: 0 auto 28px;
+    text-wrap: balance;
+}
+
+.lp-glow-line {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 113, 227, 0.9), transparent);
+    box-shadow: 0 0 10px rgba(0, 113, 227, 0.6);
+    margin: 0 auto 40px;
+    opacity: 0.85;
+}
+
+/* --- Seção de cópia intermediária --- */
+#lp-body {
+    padding: 0 28px;
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.lp-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #0071e3;
+    opacity: 0.75;
+    margin-bottom: 14px;
+}
+
+.lp-section-title {
+    font-size: clamp(28px, 7vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    color: #fff;
+    margin: 0 0 24px;
+    font-family: var(--font-main, 'Inter', sans-serif);
+    text-wrap: balance;
+}
+
+.lp-section-text {
+    font-size: clamp(16px, 3vw, 19px);
+    color: #86868b;
+    line-height: 1.6;
+    margin: 0 0 16px;
+    font-weight: 400;
+    text-wrap: balance;
+}
+
+.lp-highlight {
+    color: #E5E5EA;
+    font-weight: 600;
+}
+
+.lp-blue-line {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 113, 227, 0.7), transparent);
+    margin: 32px auto;
+    opacity: 0.7;
+}
+
+/* --- Seção de benefícios (feature list) --- */
+#lp-features {
+    padding: 0 20px;
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.lp-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.lp-feature-item:last-child {
+    border-bottom: none;
+}
+
+.lp-feature-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 113, 227, 0.08);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.lp-feature-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: #0071e3;
+    stroke-width: 1.8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.lp-feature-text {
+    flex: 1;
+}
+
+.lp-feature-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+    line-height: 1.25;
+}
+
+.lp-feature-desc {
+    font-size: 14px;
+    color: #86868b;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+/* --- Plans section --- */
+#lp-plans {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 20px;
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.lp-plan-card {
+    background: linear-gradient(160deg, #131418 0%, #0d0e12 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 24px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.lp-plan-card:active { transform: scale(0.99); }
+
+.lp-plan-card:hover { border-color: rgba(255, 255, 255, 0.14); }
+
+.lp-plan-card-featured {
+    border-color: rgba(0, 113, 227, 0.55);
+    background: linear-gradient(160deg, #101420 0%, #0a0e1a 100%);
+    box-shadow:
+        0 0 0 1px rgba(0, 113, 227, 0.25),
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.lp-plan-card-featured::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(0, 80, 200, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.lp-plan-badge {
+    background: rgba(0, 113, 227, 0.15);
+    border: 1px solid rgba(0, 113, 227, 0.4);
+    color: #4da3ff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 999px;
+}
+
+.lp-plan-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.lp-plan-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #0071e3;
+    opacity: 0.8;
+    margin-bottom: 4px;
+    line-height: 1;
+}
+
+.lp-plan-name {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #fff;
+    line-height: 1.1;
+    font-family: var(--font-main, 'Inter', sans-serif);
+}
+
+.lp-plan-radio {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: border-color 0.3s;
+}
+
+.lp-plan-radio-active {
+    border-color: #0071e3;
+    background: rgba(0, 113, 227, 0.1);
+    box-shadow: 0 0 12px rgba(0, 113, 227, 0.3);
+}
+
+.lp-plan-radio-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #0071e3;
+    box-shadow: 0 0 8px rgba(0, 113, 227, 0.7);
+}
+
+.lp-plan-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.lp-plan-price-value {
+    font-size: clamp(26px, 6vw, 34px);
+    font-weight: 700;
+    color: #0071e3;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-family: var(--font-main, 'Inter', sans-serif);
+}
+
+.lp-plan-price-period {
+    font-size: 15px;
+    font-weight: 500;
+    color: #86868b;
+    letter-spacing: -0.01em;
+}
+
+.lp-plan-desc {
+    font-size: 14px;
+    color: #86868b;
+    line-height: 1.5;
+    margin: 0 0 20px;
+    font-weight: 400;
+}
+
+.lp-plan-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px 20px;
+    border-radius: 999px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-main, 'Inter', sans-serif);
+    letter-spacing: -0.01em;
+    transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+    display: flex;
+}
+
+.lp-plan-btn:active { transform: scale(0.97); }
+
+.lp-plan-btn-secondary {
+    background: rgba(255, 255, 255, 0.06);
+    color: #0071e3;
+    border: 1px solid rgba(0, 113, 227, 0.3);
+}
+
+.lp-plan-btn-secondary:hover {
+    background: rgba(0, 113, 227, 0.1);
+    border-color: rgba(0, 113, 227, 0.5);
+}
+
+.lp-plan-btn-primary {
+    background: linear-gradient(180deg, #1a8aff 0%, #0060e0 100%);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 100, 220, 0.2), 0 2px 8px rgba(0, 100, 220, 0.15);
+}
+
+.lp-plan-btn-primary:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 12px 32px rgba(0, 100, 220, 0.3);
+}
+
+/* --- Footer --- */
+#lp-footer {
+    padding: 32px 28px 48px;
+    text-align: center;
+}
+
+.lp-footer-text {
+    font-size: 13px;
+    color: #86868b;
+    opacity: 0.65;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+.lp-footer-secure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #86868b;
+    opacity: 0.5;
+    font-weight: 400;
+}
+
+/* --- Spacers --- */
+.lp-spacer-sm { height: 32px; }
+.lp-spacer-md { height: 48px; }
+.lp-spacer-lg { height: 64px; }
