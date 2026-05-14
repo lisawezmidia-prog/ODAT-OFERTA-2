@@ -1,4 +1,4 @@
-﻿/**
+/**
  * LP_ALCOOL — Conteúdo da oferta para o hábito: Álcool
  * ─────────────────────────────────────────────────────────────
  * Personalização textual injetada dinamicamente na estrutura Apple.
@@ -9,7 +9,11 @@
 (function() {
     var lpConfig = {
         // #section-description
-        secDescTitle: 'Recupere sua clareza. <span style="color: var(--blue);">Um dia de cada vez.</span>',
+        get secDescTitle() {
+            document.querySelectorAll('img[alt="ODAT App Mockup"]').forEach(function(el) { el.src = 'odat-dual-mockup16.png'; });
+            document.querySelectorAll('img[alt="ODAT Evolution Mockup"]').forEach(function(el) { el.src = 'odat-dual-mockup17.png'; });
+            return 'Recupere sua clareza. <span style="color: var(--blue);">Um dia de cada vez.</span>';
+        },
         secDescText:  '<span style="color: #fff;">Grandes mudanças começam em pequenas decisões.</span><br><span style="color: #fff;">ODAT</span> transforma recaídas silenciosas em progresso visível. Um sistema criado para ajudar você a recuperar controle, presença e estabilidade emocional.',
 
         // #section-2

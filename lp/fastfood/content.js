@@ -1,4 +1,4 @@
-﻿/**
+/**
  * LP MODULE — ODAT
  * ─────────────────────────────────────────────────────────────
  * Personalização textual injetada dinamicamente na estrutura Apple.
@@ -10,7 +10,11 @@
 (function() {
     var lpConfig = {
         // #section-description
-        secDescTitle: 'Recupere sua disposição. <span style="color: var(--blue);">Uma escolha de cada vez.</span>',
+        get secDescTitle() {
+            document.querySelectorAll('img[alt="ODAT App Mockup"]').forEach(function(el) { el.src = 'odat-dual-mockup24.png'; });
+            document.querySelectorAll('img[alt="ODAT Evolution Mockup"]').forEach(function(el) { el.src = 'odat-dual-mockup25.png'; });
+            return 'Recupere sua disposição. <span style="color: var(--blue);">Uma escolha de cada vez.</span>';
+        },
         secDescText:  '<span style="color: #fff;">Seu corpo sente cada decisão repetida diariamente.</span><br><span style="color: #fff;">ODAT</span> transforma impulsos automáticos em consciência diária. Um sistema criado para ajudar você a recuperar energia, equilíbrio e controle sobre sua rotina.',
 
         // #section-2

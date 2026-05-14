@@ -1,4 +1,4 @@
-﻿/**
+/**
  * LP MODULE — ODAT
  * ─────────────────────────────────────────────────────────────
  * Personalização textual injetada dinamicamente na estrutura Apple.
@@ -10,7 +10,11 @@
 (function() {
     var lpConfig = {
         // #section-description
-        secDescTitle: 'Recupere sua estabilidade. <span style="color: var(--blue);">Uma escolha de cada vez.</span>',
+        get secDescTitle() {
+            document.querySelectorAll('img[alt="ODAT App Mockup"]').forEach(function(el) { el.src = 'odat-dual-mockup18.png'; });
+            document.querySelectorAll('img[alt="ODAT Evolution Mockup"]').forEach(function(el) { el.src = 'odat-dual-mockup19.png'; });
+            return 'Recupere sua estabilidade. <span style="color: var(--blue);">Uma escolha de cada vez.</span>';
+        },
         secDescText:  '<span style="color: #fff;">O controle financeiro começa em pequenas decisões.</span><br><span style="color: #fff;">ODAT</span> transforma impulsos financeiros em consciência diária. Um sistema criado para ajudar você a recuperar clareza, controle e estabilidade emocional.',
 
         // #section-2
