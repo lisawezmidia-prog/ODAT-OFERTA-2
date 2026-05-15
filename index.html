@@ -5,6 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ODAT — Um dia de cada vez.</title>
     <link rel="icon" type="image/png" href="odat-dual-mockup15.png">
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;
+    n.push=n;
+    n.loaded=!0;
+    n.version='2.0';
+    n.queue=[];
+    t=b.createElement(e);
+    t.async=!0;
+    t.src=v;
+    s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}
+    (window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init','2195732397892012');
+    fbq('track','PageView');
+    </script>
+
+    <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2195732397892012&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
     <!-- Priority Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2397,7 +2425,7 @@
                         <span class="plan-price-period">/mês</span>
                     </div>
                     <p class="plan-desc">Flexibilidade para começar no seu ritmo.</p>
-                    <button class="plan-btn plan-btn-secondary">
+                    <button id="btn-plan-monthly" class="plan-btn plan-btn-secondary">
                         Escolher plano mensal
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
@@ -2422,7 +2450,7 @@
                         <span class="plan-price-period">/ano</span>
                     </div>
                     <p class="plan-desc">O melhor custo-benefício para sua transformação contínua.</p>
-                    <button class="plan-btn plan-btn-primary">
+                    <button id="btn-plan-annual" class="plan-btn plan-btn-primary">
                         Escolher plano anual
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
@@ -2830,6 +2858,59 @@
         document.getElementById('img-mockup13').addEventListener('click', function() {
             openConversionPage();
         });
+    </script>
+
+    <script>
+        // Meta Pixel Custom Events Tracking
+        (function() {
+            let viewContentFired = false;
+            let addToCartFired = false;
+            let initiateCheckoutFired = false;
+
+            // 2. VIEW CONTENT: Clique em "Veja o que muda"
+            const btnOpenModal = document.getElementById('btn-open-modal');
+            if (btnOpenModal) {
+                btnOpenModal.addEventListener('click', function() {
+                    if (!viewContentFired) {
+                        fbq('track', 'ViewContent');
+                        viewContentFired = true;
+                    }
+                });
+            }
+
+            // 3. ADD TO CART: Clique em "Comece agora" OU Imagem odat-dual-mockup13
+            const btnComeceAgora = document.getElementById('btn-comece-agora');
+            const imgMockup13 = document.getElementById('img-mockup13');
+
+            function fireAddToCart() {
+                if (!addToCartFired) {
+                    fbq('track', 'AddToCart');
+                    addToCartFired = true;
+                }
+            }
+
+            if (btnComeceAgora) btnComeceAgora.addEventListener('click', fireAddToCart);
+            if (imgMockup13) imgMockup13.addEventListener('click', fireAddToCart);
+
+            // 4. INITIATE CHECKOUT: Clique em Plano Mensal OU Plano Anual
+            const btnMonthly = document.getElementById('btn-plan-monthly');
+            const btnAnnual = document.getElementById('btn-plan-annual');
+            const cardMonthly = document.getElementById('plan-monthly');
+            const cardAnnual = document.getElementById('plan-annual');
+
+            function fireInitiateCheckout() {
+                if (!initiateCheckoutFired) {
+                    fbq('track', 'InitiateCheckout');
+                    initiateCheckoutFired = true;
+                }
+            }
+
+            // Track both button and card clicks as the card itself is clickable
+            if (btnMonthly) btnMonthly.addEventListener('click', fireInitiateCheckout);
+            if (btnAnnual) btnAnnual.addEventListener('click', fireInitiateCheckout);
+            if (cardMonthly) cardMonthly.addEventListener('click', fireInitiateCheckout);
+            if (cardAnnual) cardAnnual.addEventListener('click', fireInitiateCheckout);
+        })();
     </script>
 
     <!-- ═══════════════════════════════════════════════════════
