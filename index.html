@@ -33,6 +33,20 @@
     src="https://www.facebook.com/tr?id=2195732397892012&ev=PageView&noscript=1"/>
     </noscript>
     <!-- End Meta Pixel Code -->
+    
+    <!-- Google Analytics 4 (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BK20KMC6W0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Configuração básica com PageView automático desativado para controle total via SPA
+      gtag('config', 'G-BK20KMC6W0', {
+        'send_page_view': true
+      });
+    </script>
+    <!-- End Google Analytics 4 -->
     <!-- Priority Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2207,6 +2221,13 @@
             
             if (window.currentHabitSelection !== habitName) {
                 resetFlowState();
+                
+                // SPA Tracking: Disparar PageView ao mudar de hábito
+                gtag('event', 'page_view', {
+                    page_title: `ODAT - ${habitName}`,
+                    page_location: window.location.href,
+                    page_path: window.location.pathname + '?habit=' + encodeURIComponent(habitName)
+                });
             }
             window.currentHabitSelection = habitName;
 
@@ -2839,6 +2860,13 @@
                 requestAnimationFrame(() => overlay.classList.add('open'));
             });
             document.body.style.overflow = 'hidden';
+
+            // SPA Tracking: Disparar PageView para a tela de planos
+            gtag('event', 'page_view', {
+                page_title: 'ODAT - Escolha seu Plano',
+                page_location: window.location.href,
+                page_path: window.location.pathname + '#planos'
+            });
         }
 
         function closeConversionPage() {
@@ -2861,7 +2889,7 @@
     </script>
 
     <script>
-        // Meta Pixel Custom Events Tracking
+        // Analytics & Meta Pixel Custom Events Tracking
         (function() {
             let viewContentFired = false;
             let addToCartFired = false;
@@ -2873,6 +2901,7 @@
                 btnOpenModal.addEventListener('click', function() {
                     if (!viewContentFired) {
                         fbq('track', 'ViewContent');
+                        gtag('event', 'ViewContent');
                         viewContentFired = true;
                     }
                 });
@@ -2885,6 +2914,7 @@
             function fireAddToCart() {
                 if (!addToCartFired) {
                     fbq('track', 'AddToCart');
+                    gtag('event', 'AddToCart');
                     addToCartFired = true;
                 }
             }
@@ -2901,6 +2931,7 @@
             function fireInitiateCheckout() {
                 if (!initiateCheckoutFired) {
                     fbq('track', 'InitiateCheckout');
+                    gtag('event', 'InitiateCheckout');
                     initiateCheckoutFired = true;
                 }
             }
