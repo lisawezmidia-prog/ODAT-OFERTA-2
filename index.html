@@ -24,13 +24,17 @@
     (window,document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
 
-    fbq('init','2195732397892012');
-    fbq('track','PageView');
+    fbq('init', '2195732397892012');
+    fbq('init', '816574247921493');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent');
     </script>
 
     <noscript>
     <img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=2195732397892012&ev=PageView&noscript=1"/>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=816574247921493&ev=PageView&noscript=1"/>
     </noscript>
     <!-- End Meta Pixel Code -->
     
@@ -2889,7 +2893,7 @@
     </script>
 
     <script>
-        // Analytics & Meta Pixel Custom Events Tracking
+        // Google Analytics Custom Events Tracking
         (function() {
             let viewContentFired = false;
             let addToCartFired = false;
@@ -2900,7 +2904,6 @@
             if (btnOpenModal) {
                 btnOpenModal.addEventListener('click', function() {
                     if (!viewContentFired) {
-                        fbq('track', 'ViewContent');
                         gtag('event', 'ViewContent');
                         viewContentFired = true;
                     }
@@ -2913,7 +2916,6 @@
 
             function fireAddToCart() {
                 if (!addToCartFired) {
-                    fbq('track', 'AddToCart');
                     gtag('event', 'AddToCart');
                     addToCartFired = true;
                 }
@@ -2930,7 +2932,6 @@
 
             function fireInitiateCheckout() {
                 if (!initiateCheckoutFired) {
-                    fbq('track', 'InitiateCheckout');
                     gtag('event', 'InitiateCheckout');
                     initiateCheckoutFired = true;
                 }
